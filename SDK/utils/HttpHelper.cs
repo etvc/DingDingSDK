@@ -150,78 +150,16 @@ namespace DingDingSDK.utils
         }
 
 
-        public static BsonDocument uploadMedia(String url, FileInfo file) 
+        public static BsonDocument uploadMedia(String url, FileInfo file)
         {
             WebClient client = new WebClient();
             var fp = new Dictionary<string, object>();
             fp.Add("media", new utils.FormUpload.FileParameter(System.IO.File.ReadAllBytes(file.FullName), file.Name, "application/octet-stream"));
-         var  resp=   FormUpload.MultipartFormDataPost(url, "", fp);
+            var resp = FormUpload.MultipartFormDataPost(url, "", fp);
             StreamReader sr = new StreamReader(resp.GetResponseStream());
             return BsonDocument.Parse(sr.ReadToEnd());
-            //    HttpPost httpPost = new HttpPost(url);
-            //    CloseableHttpResponse response = null;
-            //    CloseableHttpClient httpClient = HttpClients.createDefault();
-            //    RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(2000).setConnectTimeout(2000).build();
-            //    httpPost.setConfig(requestConfig);
-
-            //    HttpEntity requestEntity = MultipartEntityBuilder.create().addPart("media",
-            //		new FileBody(file, ContentType.APPLICATION_OCTET_STREAM, file.getName())).build();
-            //    httpPost.setEntity(requestEntity);
-
-            //try {
-            //        response = httpClient.execute(httpPost, new BasicHttpContext());
-
-            //        if (response.getStatusLine().getStatusCode() != 200)
-            //        {
-
-            //            System.out.println("request url failed, http code=" + response.getStatusLine().getStatusCode()
-            //                               + ", url=" + url);
-            //            return null;
-            //        }
-            //        HttpEntity entity = response.getEntity();
-            //        if (entity != null)
-            //        {
-            //            String resultStr = EntityUtils.toString(entity, "utf-8");
-
-            //            JSONObject result = JSON.parseObject(resultStr);
-            //            if (result.getInteger("errcode") == 0)
-            //            {
-            //                // 成功
-            //                result.remove("errcode");
-            //                result.remove("errmsg");
-            //                return result;
-            //            }
-            //            else
-            //            {
-            //                System.out.println("request url=" + url + ",return value=");
-            //                System.out.println(resultStr);
-            //                int errCode = result.getInteger("errcode");
-            //                String errMsg = result.getString("errmsg");
-            //                throw new OApiException(errCode, errMsg);
-            //            }
-            //        }
-            //    } catch (IOException e) {
-            //        System.out.println("request url=" + url + ", exception, msg=" + e.getMessage());
-            //        e.printStackTrace();
-            //    } finally {
-            //        if (response != null)
-            //            try
-            //            {
-            //                response.close();
-            //            }
-            //            catch (IOException e)
-            //            {
-            //                e.printStackTrace();
-            //            }
-            //    }
-
-            //return null;
-       // }
-
-
-        
-    }
-    public static BsonDocument downloadMedia(String url, String fileDir)
+        }
+        public static BsonDocument downloadMedia(String url, String fileDir)
         {
             var bd = new BsonDocument() { };
             try

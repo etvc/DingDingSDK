@@ -42,8 +42,7 @@ namespace DingDingSDK.media
             String url = Env.OAPI_HOST + "/media/upload?" +
                 "access_token=" + accessToken + "&type=" + type;
             BsonDocument response = HttpHelper.uploadMedia(url, file);
-            if (!response.Contains("type") || !response.Contains("media_id") ||
-                    response.Contains("created_at"))
+            if (!response.Contains("type") || !response.Contains("media_id") || response.Contains("created_at"))
             {
                 response.Set("created_at", response.GetValue("created_at").AsInt64.ToString());
 
